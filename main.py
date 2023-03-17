@@ -50,13 +50,8 @@ def main():
         
         # alternate operations
         elif operation == "Date Delta": #TODO: add data validator
-            date1_str = inquirer.text(
-                message=f"Enter {messages[operation][0]}",
-            ).execute()
-
-            date2_str = inquirer.text(
-                message=f"Enter {messages[operation][1]}",
-            ).execute()
+            date1_str = inquire_text(messages[operation][0])
+            date2_str = inquire_text(messages[operation][1])
 
             # convert date string to date object
             try:
@@ -95,5 +90,11 @@ def inquire_number(message):
             ).execute()
     return result
 
+def inquire_text(message):
+    result = inquirer.text(
+                message=f"Enter {message}",
+            ).execute()
+    return result
+    
 if __name__ == "__main__":
     main()
