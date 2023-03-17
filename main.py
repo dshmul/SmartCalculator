@@ -63,7 +63,22 @@ def main():
         
         # alternate operations
         elif operation == "Date Delta": #TODO: add data validator
-            pass
+            date1_str = inquirer.text(
+                message=f"Enter {messages[operation][0]}",
+            ).execute()
+
+            date2_str = inquirer.text(
+                message=f"Enter {messages[operation][1]}",
+            ).execute()
+
+            # convert date string to date object
+            date1 = datetime.strptime(date1_str, "%d/%m/%Y")
+            date2 = datetime.strptime(date2_str, "%d/%m/%Y")
+            
+            # calculate different in days
+            delta = date2 - date1
+            print(f"Result: {abs(delta.days)} days")
+            
         elif operation == "Univariate Equation":
             pass
         elif operation == "Quadratic Equation":
