@@ -2,7 +2,7 @@
 
 Interactive CLI implemented using python3, InquirerPy, and SymPy.
 
-![CalculatorDemo](./assets/CalculatoreDemo.png)
+![CalculatorDemo](./assets/CalculatorDemo.png)
 
 ## Getting Started
 
