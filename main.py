@@ -1,7 +1,7 @@
 from InquirerPy import inquirer 
 from InquirerPy.validator import EmptyInputValidator
 from datetime import datetime
-import math
+import cmath
 
 def main():
     messages = {"Addition": ["first value", "second value"],
@@ -74,8 +74,12 @@ def main():
             c = float(inquire_number(messages[operation][2]))
 
             # calculate zeros
-            result1 = (-b + math.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
-            result2 = (-b - math.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
+            try:
+                result1 = (-b + cmath.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
+                result2 = (-b - cmath.sqrt((b ** 2) - (4 * a * c))) / (2 * a)
+            except: 
+                print("Error: Invalid value provided for quadratic term.\n")
+                continue
 
             print(f"Results: {result1}, {result2}")
 
