@@ -51,7 +51,7 @@ def main():
                 elif operation == "Root": 
                     print(f"Result: {val1 ** (1/val2)}")
             except:
-                print("Error: Second value cannot be 0. Try again.\n")
+                print(f"Error: {messages[operation][1]} cannot be 0. Try again.\n")
                 continue
         
         # alternate operations
