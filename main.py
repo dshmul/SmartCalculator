@@ -2,6 +2,8 @@ from InquirerPy import inquirer
 from InquirerPy.validator import EmptyInputValidator
 from datetime import datetime
 import cmath
+from sympy.solvers import solve
+from sympy import Symbol
 
 def main():
     messages = {"Addition": ["first value", "second value"],
@@ -11,7 +13,7 @@ def main():
                 "Exponent": ["base", "exponent"],
                 "Root": ["base", "root"],
                 "Date Delta": ["first date (DD/MM/YYYY)", "second date (DD/MM/YYYY)"],
-                "Univariate Equation": ["algebraic equation"],
+                "Univariate Equation": ["univariate equation (use 'x' for variable)"],
                 "Quadratic Equation": ["quadratic term (a)", "linear term (b)", "constant term (c)"],}
 
     while True:
@@ -35,21 +37,25 @@ def main():
             val1 = float(inquire_number(messages[operation][0]))
             val2 = float(inquire_number(messages[operation][1]))
 
-            if operation == "Addition":
-                print(f"Result: {val1 + val2}")
-            elif operation == "Subtraction":
-                print(f"Result: {val1 - val2}") 
-            elif operation == "Multiplication":
-                print(f"Result: {val1 * val2}") 
-            elif operation == "Division":
-                print(f"Result: {val1 / val2}")
-            elif operation == "Exponent": 
-                print(f"Result: {val1 ** val2}")
-            elif operation == "Root": #TODO: handle divide by 0
-                print(f"Result: {val1 ** (1/val2)}")
+            try:
+                if operation == "Addition":
+                    print(f"Result: {val1 + val2}")
+                elif operation == "Subtraction":
+                    print(f"Result: {val1 - val2}") 
+                elif operation == "Multiplication":
+                    print(f"Result: {val1 * val2}") 
+                elif operation == "Division":
+                    print(f"Result: {val1 / val2}")
+                elif operation == "Exponent": 
+                    print(f"Result: {val1 ** val2}")
+                elif operation == "Root": 
+                    print(f"Result: {val1 ** (1/val2)}")
+            except:
+                print("Error: Second value cannot be 0. Try again.")
+                continue
         
         # alternate operations
-        elif operation == "Date Delta": #TODO: add data validator
+        elif operation == "Date Delta": 
             date1_str = inquire_text(messages[operation][0])
             date2_str = inquire_text(messages[operation][1])
 
@@ -66,9 +72,21 @@ def main():
             print(f"Result: {abs(delta.days)} days")
 
         elif operation == "Univariate Equation":
-            pass
-        
-        elif operation == "Quadratic Equation": # TODO: fix logic
+            input = inquire_text(messages[operation][0])
+
+            left_side = input.split("=")[0].lstrip().rstrip()
+            right_side = input.split("=")[1].lstrip().rstrip()
+            
+            x = Symbol('x')
+            try:
+                result = solve(f"{left_side} - ({right_side})" , x)
+            except:
+                print("Error: Invalid equation format provided. Include an '=' symbol in equation and put an '*' for multiplcation.")
+                continue
+
+            print(f"Result: {result}")
+
+        elif operation == "Quadratic Equation": 
             a = float(inquire_number(messages[operation][0]))
             b = float(inquire_number(messages[operation][1]))
             c = float(inquire_number(messages[operation][2]))
@@ -96,7 +114,7 @@ def inquire_number(message):
 
 def inquire_text(message):
     result = inquirer.text(
-                message=f"Enter {message}",
+                message=f"Enter {message}:",
             ).execute()
     return result
     
