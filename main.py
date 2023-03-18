@@ -51,7 +51,7 @@ def main():
                 elif operation == "Root": 
                     print(f"Result: {val1 ** (1/val2)}")
             except:
-                print("Error: Second value cannot be 0. Try again.")
+                print("Error: Second value cannot be 0. Try again.\n")
                 continue
         
         # alternate operations
@@ -81,7 +81,7 @@ def main():
             try:
                 result = solve(f"{left_side} - ({right_side})" , x)
             except:
-                print("Error: Invalid equation format provided. Include an '=' symbol in equation and put an '*' for multiplcation.")
+                print("Error: Invalid equation format provided. Include an '=' symbol in equation and put an '*' for multiplcation.\n")
                 continue
 
             print(f"Result: {result}")
